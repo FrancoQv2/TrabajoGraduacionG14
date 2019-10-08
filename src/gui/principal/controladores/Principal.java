@@ -364,9 +364,9 @@ public class Principal {
         RolEnTrabajo rt23= new RolEnTrabajo(fecha4, (Profesor)listaPersonas.get(3), Rol.JURADO);
         RolEnTrabajo rt24= new RolEnTrabajo(fecha4, (Profesor)listaPersonas.get(0), Rol.JURADO);
        
-        System.out.println(trab1.agregarProfesor(rt22));// no deberia poder 
+        System.out.println(trab1.agregarProfesor(rt22));// NO deberia poder 
         System.out.println(trab1.agregarProfesor(rt23));
-        System.out.println(trab1.agregarProfesor(rt24)); // no deberia poder 
+        System.out.println(trab1.agregarProfesor(rt24)); // NO deberia poder 
         trab1.setFechaAprobacion(fecha4);
         
         System.out.println("\n*** TRABAJOS CON JURADO *** \n ");
