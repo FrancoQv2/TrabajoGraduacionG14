@@ -30,6 +30,14 @@ public class Profesor extends Persona{
         System.out.print("\t" + cargo);
     }
 
+    public Cargo getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
+    }
+
 
       
 }
