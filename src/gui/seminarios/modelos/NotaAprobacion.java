@@ -10,5 +10,6 @@ package gui.seminarios.modelos;
  * @author estudiante
  */
 public enum NotaAprobacion {
-    APROBADO_SINOBS, APROBADO_CONOBS, DESAPROBADO
+//    APROBADO_SINOBS, APROBADO_CONOBS, DESAPROBADO
+    APROBADO, DESAPROBADO
 }

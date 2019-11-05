@@ -20,6 +20,13 @@ public class AlumnoEnTrabajo {
 
     private Alumno unAlumno;
 
+    
+    //CREADO PARA COMPARAR DOS ALUMNOS EN GESTORTRABAJOS
+    public AlumnoEnTrabajo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     //NO LO USAMOS CREO
     public AlumnoEnTrabajo(LocalDate fechaDesde, LocalDate fechaHasta, String razon, Alumno unAlumno) {
         this.fechaDesde = fechaDesde;
@@ -33,6 +40,8 @@ public class AlumnoEnTrabajo {
         this.fechaDesde = fechaDesde;
         this.unAlumno = unAlumno;
     }
+
+    
     
     
 

@@ -34,6 +34,10 @@ public class RolEnTrabajo {
         this.unProfesor = unProfesor;
         this.rol = rol;
     }
+
+    RolEnTrabajo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 
@@ -85,6 +89,20 @@ public class RolEnTrabajo {
         }
         return true;
     }
-    
-    
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+    public Profesor getUnProfesor() {
+        return unProfesor;
+    }
+
+    public void setUnProfesor(Profesor unProfesor) {
+        this.unProfesor = unProfesor;
+    }
 }

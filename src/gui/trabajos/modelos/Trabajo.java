@@ -43,7 +43,7 @@ public class Trabajo {
 
     //SE LO LLAMA DESDE EL MAIN
     public Trabajo(String titulo, ArrayList<Area> areas, int duracion, 
-            LocalDate fechaPresentacion, ArrayList<AlumnoEnTrabajo> alumnoEnTrabajo, 
+            LocalDate fechaPresentacion, LocalDate fechaAprobacion, ArrayList<AlumnoEnTrabajo> alumnoEnTrabajo, 
             ArrayList<RolEnTrabajo> rolEnTrabajo) {
         this.titulo = titulo;
         this.duracion = duracion;

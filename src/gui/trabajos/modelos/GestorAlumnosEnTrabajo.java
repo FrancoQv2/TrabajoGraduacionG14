@@ -32,10 +32,11 @@ public class GestorAlumnosEnTrabajo implements IGestorAlumnosEnTrabajo{
     }
 
     @Override
-    public String nuevoAlumnoEnTrabajo(LocalDate fechaDesde, Alumno unAlumno) {
+    public AlumnoEnTrabajo nuevoAlumnoEnTrabajo(LocalDate fechaDesde, Alumno unAlumno) {
         if (fechaDesde != null && !unAlumno.equals(null)) {
             AlumnoEnTrabajo unAET = new AlumnoEnTrabajo(fechaDesde, unAlumno);
-            return EXITOAET;
+            System.out.println(EXITO);
+            return unAET;
         }else
             return null;
     }

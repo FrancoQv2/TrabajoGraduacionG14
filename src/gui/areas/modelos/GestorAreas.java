@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class GestorAreas implements IGestorAreas{
     
-    private ArrayList<Area> listasAreas = new ArrayList<Area>();
+    private ArrayList<Area> listasAreas = new ArrayList<>();
     
     private static GestorAreas gestor;
     
@@ -60,16 +60,23 @@ public class GestorAreas implements IGestorAreas{
     
     @Override
     public ArrayList<Area> buscarAreas(String nombre){
+        
+//        if (nombre == null){
+//              //DEVUELVE LA LISTA COMPLETA, NO UNA VACIA
+//        }
+        
         if (nombre != null && !nombre.trim().isEmpty()) {
             ArrayList<Area> areasBuscadas = new ArrayList<>();
             for(Area a : listasAreas){
-                if (a.getNombre().toUpperCase().contains(nombre.toUpperCase())) //otra forma if(a.getNombre().compareToIgnoreCase(nombre) == 0)
+                if (a.getNombre().toUpperCase().contains(nombre.toUpperCase())){ //otra forma if(a.getNombre().compareToIgnoreCase(nombre) == 0)
                     areasBuscadas.add(a);
+                } //else
+//                   return new ArrayList<Area>(); 
             }
             return areasBuscadas;
-        }else
-//            return listasAreas;  //DEVUELVE LA LISTA COMPLETA, NO UNA VACIA
-            return new ArrayList<Area>();  //PARA QUE DEVUELVA UNA LISTA VACIA COMO PIDE EL ENUNCIADO
+        }
+        return listasAreas;
+//            return new ArrayList<Area>();  //PARA QUE DEVUELVA UNA LISTA VACIA COMO PIDE EL ENUNCIADO
     }
     
     

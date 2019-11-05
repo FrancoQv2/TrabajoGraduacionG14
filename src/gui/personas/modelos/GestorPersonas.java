@@ -84,7 +84,8 @@ public class GestorPersonas implements IGestorPersonas{
                 }
             }
             return listaProfesores;
-        }else
+        }
+        else
             return new ArrayList<Profesor>();  //SIRVE?????? PARA DEVOLVER UNA LISTA VACIA
     }
 
@@ -142,7 +143,7 @@ public class GestorPersonas implements IGestorPersonas{
     }
     
 
-    private static boolean validarProfesor(String apellidos, String nombres, int dni, Cargo cargo){//Profesor profesor){
+    private static boolean validarProfesor(String apellidos, String nombres, int dni, Cargo cargo){ //Profesor profesor){
 //        if (!profesor.getApellidos().trim().isEmpty() && !profesor.getApellidos().equals(null) && !profesor.getNombres().trim().isEmpty() && !profesor.getNombres().equals(null) && (profesor.getDni() > 0) && (profesor.getCargo() != null)) {
         if (!apellidos.trim().isEmpty() && !apellidos.equals(null) && !nombres.trim().isEmpty() && !nombres.equals(null) && (dni > 0) && (cargo != null)) {
             return true;
