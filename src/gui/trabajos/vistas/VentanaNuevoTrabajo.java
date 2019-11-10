@@ -1,7 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * Programacion II
+ * Caso Practico 2019
+ * - Bardin, Pablo Mauricio
+ * - Quevedo, Franco
  */
 package gui.trabajos.vistas;
 
@@ -175,23 +176,23 @@ public class VentanaNuevoTrabajo extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String titulo = txtTitulo.getText();
-        String area = txtArea.getText();
-        int duracion = Integer.parseInt(txtDuracion.getText());
+//        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//        String titulo = txtTitulo.getText();
+//        String area = txtArea.getText();
+//        int duracion = Integer.parseInt(txtDuracion.getText());
+//        
+//        String fechaPre = txtFechaPresentacion.getText();
+//        LocalDate fechaPresentacion = LocalDate.parse(fechaPre, formato);
+//
+//        String fechaAp = txtFechaAprobacion.getText();
+//        LocalDate fechaAprobacion = LocalDate.parse(fechaAp, formato);
+//
+//        String fechaF = txtFechaFinalizacion.getText();
+//        LocalDate fechaFinalizacion = LocalDate.parse(fechaF, formato);
+//        
+//        Trabajo unTrabajo = new Trabajo(titulo, area, duracion, fechaPresentacion, fechaAprobacion, fechaFinalizacion);
         
-        String fechaPre = txtFechaPresentacion.getText();
-        LocalDate fechaPresentacion = LocalDate.parse(fechaPre, formato);
-
-        String fechaAp = txtFechaAprobacion.getText();
-        LocalDate fechaAprobacion = LocalDate.parse(fechaAp, formato);
-
-        String fechaF = txtFechaFinalizacion.getText();
-        LocalDate fechaFinalizacion = LocalDate.parse(fechaF, formato);
-        
-        Trabajo unTrabajo = new Trabajo(titulo, area, duracion, fechaPresentacion, fechaAprobacion, fechaFinalizacion);
-        
-        listaTrabajos.add(unTrabajo);
+//        listaTrabajos.add(unTrabajo);
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

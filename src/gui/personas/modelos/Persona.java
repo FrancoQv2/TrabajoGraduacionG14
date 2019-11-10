@@ -1,7 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * Programacion II
+ * Caso Practico 2019
+ * - Bardin, Pablo Mauricio
+ * - Quevedo, Franco
  */
 package gui.personas.modelos;
 
@@ -19,15 +20,7 @@ public abstract class Persona {
         this.nombres = nombres;
         this.dni = dni;
     }
-
-    public int getDni() {
-        return dni;
-    }
-
-    public void setDni(int dni) {
-        this.dni = dni;
-    }
-
+    
     public String getApellidos() {
         return apellidos;
     }
@@ -43,14 +36,22 @@ public abstract class Persona {
     public void setNombres(String nombres) {
         this.nombres = nombres;
     }
+    
+    public int getDni() {
+        return dni;
+    }
 
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
+
+    public void mostrar(){
+        System.out.print("\n\t[" + this.dni + "] " + this.apellidos.toUpperCase() + ", " + this.nombres);
+    }
+    
     @Override
     public String toString() {
-        return "\t[" + this.getDni() + "] " + this.getApellidos() + ", " + this.getNombres();
-    }
-        
-    public void mostrar(){
-        System.out.print("\n\t[" + this.getDni() + "] " + this.getApellidos().toUpperCase() + ", " + this.getNombres());
+        return "[" + this.dni + "] " + this.apellidos + ", " + this.nombres;
     }
 
     @Override
@@ -77,7 +78,4 @@ public abstract class Persona {
         }
         return true;
     }
-        
-    
-    
 }

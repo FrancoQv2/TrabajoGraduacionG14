@@ -1,21 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * Programacion II
+ * Caso Practico 2019
+ * - Bardin, Pablo Mauricio
+ * - Quevedo, Franco
  */
 package gui.interfaces;
 
 import gui.areas.modelos.Area;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author gabinete
  */
 public interface IGestorAreas {
-    public static final String EXITO = "Se creo el area correctamente";
-    public static final String DUPLICADO = "El area ya fue creada";
-    public static final String ERROR = "No se pudo crear el area";
+    public static final String EXITO = "El area se creó correctamente";
+    public static final String DUPLICADO = "El area ya fue creada anteriormente";
+    public static final String ERROR = "El area no pudo ser creada";
     
     
     public String nuevaArea(String nombre);
@@ -24,5 +25,7 @@ public interface IGestorAreas {
     
     public Area dameArea(String nombre);
     
-    public ArrayList<Area> buscarAreas(String nombre);
+    public List<Area> buscarAreas(String nombre);
+    
+    public String borrarArea(Area area);
 }

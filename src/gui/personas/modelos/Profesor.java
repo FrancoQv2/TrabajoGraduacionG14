@@ -1,7 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * Programacion II
+ * Caso Practico 2019
+ * - Bardin, Pablo Mauricio
+ * - Quevedo, Franco
  */
 package gui.personas.modelos;
 
@@ -17,19 +18,7 @@ public class Profesor extends Persona{
         super(apellidos, nombres, dni);
         this.cargo = cargo;
     }
-
-    @Override
-    public String toString() {
-        return super.toString() + "\t" + cargo;
-    }
     
-        
-    @Override
-    public void mostrar(){
-        super.mostrar();
-        System.out.print("\t" + cargo);
-    }
-
     public Cargo getCargo() {
         return cargo;
     }
@@ -37,8 +26,16 @@ public class Profesor extends Persona{
     public void setCargo(Cargo cargo) {
         this.cargo = cargo;
     }
-
-
-      
+    
+    @Override
+    public void mostrar(){
+        super.mostrar();
+        System.out.print("\t" + this.cargo);
+    }
+    
+    @Override
+    public String toString() {
+        return super.toString() + "\t" + this.cargo;
+    }
 }
 

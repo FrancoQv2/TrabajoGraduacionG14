@@ -1,15 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * Programacion II
+ * Caso Practico 2019
+ * - Bardin, Pablo Mauricio
+ * - Quevedo, Franco
  */
 package gui.interfaces;
 
-import gui.personas.modelos.Persona;
 import gui.personas.modelos.Alumno;
 import gui.personas.modelos.Cargo;
 import gui.personas.modelos.Profesor;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,25 +17,30 @@ import java.util.ArrayList;
  */
 public interface IGestorPersonas {
     
-    //MODIFICAR PARA PERSONA O PROFESOR//ALUMNO !!!???
-    public static final String EXITOAL = "Se creo el alumno correctamente";
-    public static final String DUPLICADOAL = "El alumno ya fue creada";
-    public static final String ERRORAL = "No se pudo crear el alumno";
+    public static final String EXITO_ALUMNO = "El alumno se creó correctamente";
+    public static final String DUPLICADO_ALUMNO = "El alumno ya fue creado anteriormente";
+    public static final String ERROR_ALUMNO = "El alumno no pudo ser creado";
 
-    public static final String EXITOPRO = "Se creo el profesor correctamente";
-    public static final String DUPLICADOPRO = "El profesor ya fue creada";
-    public static final String ERRORPRO = "No se pudo crear el profesor";
+    public static final String EXITO_PROFESOR = "El profesor se creó correctamente";
+    public static final String DUPLICADO_PROFESOR = "El profesor ya fue creado anteriormente";
+    public static final String ERROR_PROFESOR = "El profesor no pudo ser creado";
     
     public String nuevoAlumno(String apellidos, String nombres, int dni, String cx);    
     public String nuevoProfesor(String apellidos, String nombres, int dni, Cargo cargo);
-   
-    public ArrayList<Alumno> buscarAlumnos(String apellidos);    
-    public ArrayList<Profesor> buscarProfesores(String apellidos);
-    
+
     public Alumno dameAlumno(String cx);    
     public Profesor dameProfesor(int documento);
+       
+    public List<Alumno> buscarAlumnos(String apellidos);    
+    public List<Profesor> buscarProfesores(String apellidos);
    
     public void mostrarPersonas();
     public void mostrarAlumnos();
     public void mostrarProfesores();
+    
+    public String modificarAlumno(Alumno alumno, String apellidos, String nombres, String cx);
+    public String modificarProfesor(Profesor profesor, String apellidos, String nombres, Cargo cargo);
+    
+    public String borrarAlumno(Alumno alumno);
+    public String borrarProfesor(Profesor profesor);
 }

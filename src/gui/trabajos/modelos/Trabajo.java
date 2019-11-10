@@ -1,16 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * Programacion II
+ * Caso Practico 2019
+ * - Bardin, Pablo Mauricio
+ * - Quevedo, Franco
  */
 package gui.trabajos.modelos;
 
 import gui.areas.modelos.Area;
+import static gui.interfaces.IGestorTrabajos.DUPLICADO;
+import static gui.interfaces.IGestorTrabajos.ERROR;
+import gui.seminarios.modelos.GestorSeminarios;
+import gui.seminarios.modelos.NotaAprobacion;
 import gui.seminarios.modelos.Seminario;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-
+import static gui.interfaces.IGestorTrabajos.EXITO;
 /**
  *
  * @author gabinete
@@ -23,28 +29,29 @@ public class Trabajo {
     private LocalDate fechaAprobacion;
     private LocalDate fechaFinalizacion;
     
-    private ArrayList<Area> areas;
-    private ArrayList<AlumnoEnTrabajo> alumnoEnTrabajo;
-    private ArrayList<Seminario> seminario = new ArrayList<>();
-    private ArrayList<RolEnTrabajo> rolEnTrabajo;
+    private List<Area> areas;
+    private List<AlumnoEnTrabajo> alumnoEnTrabajo;
+    private List<Seminario> seminario = new ArrayList<>();
+    private List<RolEnTrabajo> rolEnTrabajo;
 
     
-    //NO LO USAMOS CREO
-    public Trabajo(String titulo, String area, int duracion, 
-            LocalDate fechaPresentacion, 
-            LocalDate fechaAprobacion, LocalDate fechaFinalizacion) {
-        this.titulo = titulo;
-        this.area = area;
-        this.duracion = duracion;
-        this.fechaPresentacion = fechaPresentacion;
-        this.fechaAprobacion = fechaAprobacion;
-        this.fechaFinalizacion = fechaFinalizacion;
-    }
+//    //NO LO USAMOS CREO
+//    public Trabajo(String titulo, String area, int duracion, 
+//            LocalDate fechaPresentacion, 
+//            LocalDate fechaAprobacion, LocalDate fechaFinalizacion) {
+//        this.titulo = titulo;
+//        this.area = area;
+//        this.duracion = duracion;
+//        this.fechaPresentacion = fechaPresentacion;
+//        this.fechaAprobacion = fechaAprobacion;
+//        this.fechaFinalizacion = fechaFinalizacion;
+//    }
 
     //SE LO LLAMA DESDE EL MAIN
-    public Trabajo(String titulo, ArrayList<Area> areas, int duracion, 
-            LocalDate fechaPresentacion, LocalDate fechaAprobacion, ArrayList<AlumnoEnTrabajo> alumnoEnTrabajo, 
-            ArrayList<RolEnTrabajo> rolEnTrabajo) {
+    public Trabajo(String titulo, List<Area> areas, int duracion, 
+                    LocalDate fechaPresentacion, LocalDate fechaAprobacion, 
+                    List<AlumnoEnTrabajo> alumnoEnTrabajo, 
+                    List<RolEnTrabajo> rolEnTrabajo) {
         this.titulo = titulo;
         this.duracion = duracion;
         this.fechaPresentacion = fechaPresentacion;
@@ -103,6 +110,39 @@ public class Trabajo {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
+    public List<Area> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(List<Area> areas) {
+        this.areas = areas;
+    }
+
+    public List<AlumnoEnTrabajo> getAlumnoEnTrabajo() {
+        return alumnoEnTrabajo;
+    }
+
+    public void setAlumnoEnTrabajo(List<AlumnoEnTrabajo> alumnoEnTrabajo) {
+        this.alumnoEnTrabajo = alumnoEnTrabajo;
+    }
+
+    public List<RolEnTrabajo> getRolEnTrabajo() {
+        return rolEnTrabajo;
+    }
+
+    public void setRolEnTrabajo(List<RolEnTrabajo> rolEnTrabajo) {
+        this.rolEnTrabajo = rolEnTrabajo;
+    }
+
+    public List<Seminario> getSeminario() {
+        return seminario;
+    }
+
+    public void setSeminario(List<Seminario> seminario) {
+        this.seminario = seminario;
+    }
+    
+    
     public void mostrar(){
     
             System.out.println("\t\tTitulo: " + this.getTitulo());
@@ -110,19 +150,19 @@ public class Trabajo {
             
             
             for (Area A : areas) {
-            System.out.println("\t\tArea: " + A);
+                System.out.println("\t\tArea: " + A);
             }
             
             System.out.println("\t\tFecha Presentacion: " + this.getFechaPresentacion());
             
             if ( this.getFechaAprobacion() != null){
-            System.out.println("\t\tFecha Aprobacion: " + this.getFechaAprobacion());
-            } else 
-                    { System.out.println("\t\tFecha Aprobacion: - ");
-                }
+                System.out.println("\t\tFecha Aprobacion: " + this.getFechaAprobacion());
+            } else { 
+                System.out.println("\t\tFecha Aprobacion: - ");
+            }
             
-            if ( this.getFechaFinalizacion() != null){
-            System.out.println("\t\tFecha Finalizacion: " + this.getFechaFinalizacion() + "\n" );
+            if (this.getFechaFinalizacion() != null){
+                System.out.println("\t\tFecha Finalizacion: " + this.getFechaFinalizacion() + "\n" );
             } else 
                     { System.out.println("\t\tFecha Finalizacion: - \n");
                 }
@@ -140,7 +180,8 @@ public class Trabajo {
             return "No se agregó un profesor jurado";
     }
 
-        public String agregarSeminario(Seminario unSeminario){
+    //
+    public String agregarSeminario(Seminario unSeminario){
         if(!seminario.contains(unSeminario)) {
             seminario.add(unSeminario);
             return "Se agregó un seminario" ; 
@@ -174,6 +215,40 @@ public class Trabajo {
         return true;
     }
     
+    
+    //VER COMO HACER QUE RETORNE EXITO Y LAS OTRAS CONSTANTES
+    public String nuevoSeminario(LocalDate fechaExposicion, NotaAprobacion nota, String observaciones){
+        GestorSeminarios gS = GestorSeminarios.instanciar();
+        
+        if (!gS.validarSeminario(fechaExposicion, nota, observaciones).equals(EXITO)) {
+            return ERROR;
+        }
+        
+        if (!fechaExposicion.isAfter(fechaAprobacion)) {
+            return ERROR;
+        }
+        
+//        for (Seminario s : gS.getListasSeminarios()){
+//            if (!s.equals(gS.getListasSeminarios().get(0))) {
+//                gS.getListasSeminarios().add(new Seminario(fechaExposicion, nota, observaciones));
+//                return "Se agrego el seminario correctamente";
+//            } else
+//                return "El seminario ya existe";
+//        }
+        Seminario sem = new Seminario(fechaExposicion, nota, observaciones);
+        
+         //Valido que no se haya creado ya este seminario
+        if (!gS.getListasSeminarios().contains(sem)) {
+            gS.getListasSeminarios().add(sem);
+            
+            return EXITO;
+        } else {
+            return DUPLICADO;
+        }
+        
+       
+    }
+
     
     
 }

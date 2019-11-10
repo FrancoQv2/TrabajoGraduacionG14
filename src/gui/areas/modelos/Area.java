@@ -1,7 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * Programacion II
+ * Caso Practico 2019
+ * - Bardin, Pablo Mauricio
+ * - Quevedo, Franco
  */
 package gui.areas.modelos;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  *
  * @author gabinete
  */
-public class Area {
+public class Area implements Comparable<Area>{
     private String nombre;
 
     
@@ -28,9 +29,14 @@ public class Area {
     }
     
     public void mostrarAreas(){
-        System.out.println("\t\tNombre: " + this.getNombre());
+        System.out.println("\tArea: " + this.nombre);
     }
 
+    @Override
+    public String toString() {
+        return "Area: " + this.nombre;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -56,9 +62,11 @@ public class Area {
         return true;
     }
 
+    //IMPLEMENTO EL COMPARABLE EN AREA PARA QUE EL
+    //COLLECTIONS.SORT() ORDENE LAS AREAS SEGUN EL NOMBRE CUANDO SE LO LLAME
     @Override
-    public String toString() {
-        return nombre ;
+    public int compareTo(Area a) {
+        return this.nombre.compareTo(a.nombre);
     }
     
 }

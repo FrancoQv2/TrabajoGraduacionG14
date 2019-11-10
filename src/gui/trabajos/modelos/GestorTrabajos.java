@@ -1,11 +1,19 @@
+/* 
+ * Programacion II
+ * Caso Practico 2019
+ * - Bardin, Pablo Mauricio
+ * - Quevedo, Franco
+ */
 package gui.trabajos.modelos;
 
 
 import gui.areas.modelos.Area;
 import gui.interfaces.IGestorTrabajos;
+import gui.personas.modelos.Alumno;
 import gui.personas.modelos.Profesor;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,7 +27,7 @@ import java.util.ArrayList;
  */
 public class GestorTrabajos implements IGestorTrabajos{
 
-    private ArrayList<Trabajo> listasTrabajos = new ArrayList<>();
+    private List<Trabajo> listasTrabajos = new ArrayList<>();
     
     private static GestorTrabajos gestor;
     
@@ -31,12 +39,20 @@ public class GestorTrabajos implements IGestorTrabajos{
             gestor = new GestorTrabajos();
         return gestor;
     }
+
+    public List<Trabajo> getListasTrabajos() {
+        return listasTrabajos;
+    }
+
+    public void setListasTrabajos(List<Trabajo> listasTrabajos) {
+        this.listasTrabajos = listasTrabajos;
+    }
     
     
     @Override
-    public String nuevoTrabajo (String titulo, ArrayList<Area> area, int duracion, 
+    public String nuevoTrabajo (String titulo, List<Area> area, int duracion, 
                                 LocalDate fechaPresentacion, LocalDate fechaAprobacion, 
-                                ArrayList<AlumnoEnTrabajo> listaAlumnoEnT, ArrayList<RolEnTrabajo> listaRolEnT) {
+                                List<AlumnoEnTrabajo> listaAlumnoEnT, List<RolEnTrabajo> listaRolEnT) {
         
         if (verificarTrabajo(titulo, area, duracion, fechaPresentacion, fechaAprobacion, listaAlumnoEnT, listaRolEnT) == true) {
             
@@ -69,9 +85,9 @@ public class GestorTrabajos implements IGestorTrabajos{
 
     
     @Override
-    public ArrayList<Trabajo> buscarTrabajos(String filtro) {
+    public List<Trabajo> buscarTrabajos(String filtro) {
         if (filtro != null && !filtro.trim().isEmpty()) {
-            ArrayList<Trabajo> trabajosBuscadas = new ArrayList<>();
+            List<Trabajo> trabajosBuscadas = new ArrayList<>();
             for(Trabajo t : listasTrabajos){
                 if (t.getTitulo().toUpperCase().contains(filtro.toUpperCase())){ //otra forma if(a.getNombre().compareToIgnoreCase(nombre) == 0)
                     trabajosBuscadas.add(t);
@@ -84,25 +100,28 @@ public class GestorTrabajos implements IGestorTrabajos{
     }
     
     
-    private static boolean verificarTrabajo (String titulo, ArrayList<Area> area, int duracion, 
+    private boolean verificarTrabajo (String titulo, List<Area> area, int duracion, 
                                             LocalDate fechaPresentacion, LocalDate fechaAprobacion, 
-                                            ArrayList<AlumnoEnTrabajo> listaAlumnoEnT, 
-                                            ArrayList<RolEnTrabajo> listaRolEnT){ 
+                                            List<AlumnoEnTrabajo> listaAlumnoEnT, 
+                                            List<RolEnTrabajo> listaRolEnT){ 
         
         //VERIFICO EL TITULO
         if (titulo.trim().isEmpty() && titulo.equals(null)) {
+            System.out.println("El titulo del trabajo es incorrecto");
             return false;
         }  
       
         
         //VERIFICO LA DURACION 
         if (duracion < 0) {
+            System.out.println("La duracion del trabajo es incorrecta");
             return false;
         } 
       
         
         //VERIFICO QUE LA FECHA DE PRESENTACION NO SEA NULA
         if (fechaPresentacion == null){
+            System.out.println("La fecha de presentacion del trabajo es incorrecta");
             return false;
         }
        
@@ -110,19 +129,22 @@ public class GestorTrabajos implements IGestorTrabajos{
         //VERIFICO QUE LA FECHA DE APROBACION NO SEA ANTERIOR A LA DE PRESENTACION
         if(fechaAprobacion != null){
             if (!fechaAprobacion.isEqual(fechaPresentacion) && !fechaAprobacion.isAfter(fechaPresentacion)) {
-                  return false;
+                System.out.println("La fecha de aprobacion del trabajoes incorrecta");  
+                return false;
             }
         }
         
             
         //VERIFICO QUE EL TRABAJO TENGA AL MENOS UN AREA (NO SEA NULA Y NO SEA VACIA)
         if ((area == null) || (area.isEmpty())) {
+            System.out.println("El area del trabajo es incorrecta");
             return false;
         }
         
         
         //VERIFICO QUE HAYA AL MENOS UN ALUMNO
         if ((listaAlumnoEnT == null) || (listaAlumnoEnT.isEmpty())) {
+            System.out.println("La lista de alumnos en trabajo es incorrecta");
             return false;
         }
         
@@ -143,6 +165,7 @@ public class GestorTrabajos implements IGestorTrabajos{
         
         //VERIFICO QUE HAYA UN TUTOR Y/O COTUTOR
         if ((listaRolEnT == null) || (listaRolEnT.isEmpty())) {
+            System.out.println("La lista de roles en trabajo es incorrecta");
             return false;
         }
         
@@ -161,9 +184,9 @@ public class GestorTrabajos implements IGestorTrabajos{
         
         
         //VERIFICO LOS JURADOS
-        ArrayList<Profesor> listaJurado = new ArrayList<>();
+        List<Profesor> listaJurado = new ArrayList<>();
         for(RolEnTrabajo ret : listaRolEnT){
-            if (ret.getRol().equals("JURADO") ) {
+            if (ret.getRol().equals(ret.getRol().JURADO) ) {
                 listaJurado.add(ret.getUnProfesor());
             }
         }
@@ -185,7 +208,97 @@ public class GestorTrabajos implements IGestorTrabajos{
             listaJurado.clear();
         }
         
+        
+        for (Trabajo t : this.listasTrabajos){
+            for(AlumnoEnTrabajo aet : t.getAlumnoEnTrabajo()){
+                for (AlumnoEnTrabajo a : listaAlumnoEnT ){
+                    if (aet.getUnAlumno().equals(a.getUnAlumno())) {
+                    //ENCONTRADO EL ALUMNO, FINALIZA SU PARTICIPACION EN EL TRABAJO SI LA FECHA ES VALIDA
+                        System.out.println("El alumno" + a.getUnAlumno().getApellidos() + ", " + a.getUnAlumno().getNombres() + "no puede estar en dos trabajos al mismo tiempo");
+                        return false;
+                    } 
+                }
+            }
+        }  
+        
     return true;
+    }
+
+    @Override
+    public String finalizarTrabajo(Trabajo trabajo, LocalDate fechaExposicion) {
+        
+        if (fechaExposicion.isAfter(trabajo.getFechaAprobacion())){
+            if (listasTrabajos.contains(trabajo)) {
+                trabajo.setFechaFinalizacion(fechaExposicion);
+                
+                for(RolEnTrabajo ret : trabajo.getRolEnTrabajo()){
+                    ret.setFechaHasta(fechaExposicion);
+                }
+                
+                for(AlumnoEnTrabajo aet : trabajo.getAlumnoEnTrabajo()){
+                    aet.setFechaHasta(fechaExposicion);
+                }
+                
+                return "El trabajo se finalizo con exito\n";  
+            }
+        }
+        return "La fecha es invalida\n";
+    }
+
+        
+    @Override
+    public String borrarTrabajo(Trabajo trabajo) {
+        if(trabajo.getSeminario().isEmpty()){
+            listasTrabajos.remove(trabajo);
+            return "El trabajo se elimino con exito\n";
+        }
+        return "El trabajo no se puede eliminar porque hay un seminario vinculado a el\n";
+    }
+
+    @Override
+    public String reemplazarProfesor(Trabajo trabajo, Profesor profesorReemplazado, LocalDate fechaHasta, String razon, Profesor nuevoProfesor) {
+        if (listasTrabajos.contains(trabajo)) {
+            //SE FIJA QUE EL PROFESOR NUEVO NO ESTE CUMPLIENDO YA UN ROL EN TRABAJO
+            for(RolEnTrabajo ret1 : trabajo.getRolEnTrabajo()){
+                if (ret1.getUnProfesor().equals(nuevoProfesor)) {
+                    return "El nuevo profesor ya se encuentra cumpliendo un rol en el trabajo";
+                }
+            }
+            //REEMPLAZA UN PROFESOR POR UNO NUEVO SI LA FECHA HASTA ES VALIDA
+            for (RolEnTrabajo ret : trabajo.getRolEnTrabajo()) {
+                if (ret.getUnProfesor().equals(profesorReemplazado)) {
+                    if(fechaHasta.isAfter(ret.getFechaDesde())){
+                        ret.setFechaHasta(fechaHasta);
+                        ret.setRazon(razon);
+                        trabajo.getRolEnTrabajo().add(new RolEnTrabajo(fechaHasta, nuevoProfesor, ret.getRol() ));
+                        return "El profesor fue reemplazado exitosamente\n";
+                    } else { 
+                        return "La fecha no es valida\n";
+                    }
+                }
+            }  
+        }
+        return "No se encontro el trabajo \n";
+    }
+
+    @Override
+    public String finalizarAlumno(Trabajo trabajo, Alumno alumno, LocalDate fechaHasta, String razon) {
+        if (listasTrabajos.contains(trabajo)) {
+            //BUSCA AL ALUMNO DENTRO DEL TRABAJO
+            for(AlumnoEnTrabajo aet : trabajo.getAlumnoEnTrabajo()){
+                if (aet.getUnAlumno().equals(alumno)) {
+                    //ENCONTRADO EL ALUMNO, FINALIZA SU PARTICIPACION EN EL TRABAJO SI LA FECHA ES VALIDA
+                    if (fechaHasta.isAfter(aet.getFechaDesde())) {
+                        aet.setFechaHasta(fechaHasta);
+                        aet.setRazon(razon);
+                        return "El alumno fue dado de baja exitosamente\n";
+                    } else {
+                        return "La fecha es invalida\n";
+                    }
+                }
+            }
+        }
+        return "No se encontro el trabajo\n";
     }
     
 }
