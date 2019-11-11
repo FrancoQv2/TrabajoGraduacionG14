@@ -59,11 +59,11 @@ public class GestorTrabajos implements IGestorTrabajos{
             Trabajo unTrabajo = new Trabajo(titulo, area, duracion, fechaPresentacion, fechaAprobacion, listaAlumnoEnT, listaRolEnT);
             if (!this.listasTrabajos.contains(unTrabajo)) {
                 this.listasTrabajos.add(unTrabajo);
-                return EXITO;
+                return EXITO_TRABAJO;
             } else
-                return DUPLICADO;
-        } else
-        return ERROR;
+                return DUPLICADO_TRABAJO;
+        } 
+        return ERROR_TRABAJO;
     }
 
     
@@ -76,10 +76,14 @@ public class GestorTrabajos implements IGestorTrabajos{
     
     @Override
     public Trabajo dameTrabajo(String titulo) {
+//        if (titulo != null && !titulo.trim().isEmpty()) {
         for(Trabajo t : listasTrabajos){
-            if (t.getTitulo().equalsIgnoreCase(titulo))
-                return t;
-        }
+//            if (titulo != null && !titulo.trim().isEmpty()) {
+                if (t.getTitulo().equalsIgnoreCase(titulo))
+                    return t;
+//                }
+            }
+//        } else
         return null;
     }
 
@@ -106,92 +110,116 @@ public class GestorTrabajos implements IGestorTrabajos{
                                             List<RolEnTrabajo> listaRolEnT){ 
         
         //VERIFICO EL TITULO
-        if (titulo.trim().isEmpty() && titulo.equals(null)) {
-            System.out.println("El titulo del trabajo es incorrecto");
+        if (titulo == null || titulo.trim().isEmpty()) {
+            System.out.println("\tERROR - El titulo del trabajo es incorrecto");
             return false;
         }  
       
         
         //VERIFICO LA DURACION 
-        if (duracion < 0) {
-            System.out.println("La duracion del trabajo es incorrecta");
+        if (duracion <= 0) {
+            System.out.println("\tERROR - La duracion del trabajo es incorrecta");
             return false;
         } 
       
         
         //VERIFICO QUE LA FECHA DE PRESENTACION NO SEA NULA
         if (fechaPresentacion == null){
-            System.out.println("La fecha de presentacion del trabajo es incorrecta");
+            System.out.println("\tERROR - La fecha de presentacion del trabajo es incorrecta");
             return false;
         }
        
+        if (fechaAprobacion == null) {
+            System.out.println("\tERROR - La fecha de aprobacion del trabajo es incorrecta");
+            return false;
+        }
         
         //VERIFICO QUE LA FECHA DE APROBACION NO SEA ANTERIOR A LA DE PRESENTACION
-        if(fechaAprobacion != null){
+//        if(fechaAprobacion != null){
             if (!fechaAprobacion.isEqual(fechaPresentacion) && !fechaAprobacion.isAfter(fechaPresentacion)) {
-                System.out.println("La fecha de aprobacion del trabajoes incorrecta");  
+                System.out.println("\tERROR - La fecha de aprobacion del trabajoes incorrecta");  
                 return false;
             }
-        }
+//        }
         
             
         //VERIFICO QUE EL TRABAJO TENGA AL MENOS UN AREA (NO SEA NULA Y NO SEA VACIA)
-        if ((area == null) || (area.isEmpty())) {
-            System.out.println("El area del trabajo es incorrecta");
+        if (area == null || area.isEmpty()) {
+            System.out.println("\tERROR - El area del trabajo es incorrecta");
             return false;
         }
         
         
         //VERIFICO QUE HAYA AL MENOS UN ALUMNO
-        if ((listaAlumnoEnT == null) || (listaAlumnoEnT.isEmpty())) {
-            System.out.println("La lista de alumnos en trabajo es incorrecta");
+        if (listaAlumnoEnT == null || listaAlumnoEnT.isEmpty()) {
+            System.out.println("\tERROR - La lista de alumnos en trabajo es incorrecta");
             return false;
         }
         
         
         //VERIFICO QUE SI HAY MAS DE UN ALUMNO SEAN DISTINTOS (EN TEORIA SE SUPONE QUE ANDA)
-        //PUEDO USAR UN COMPARATOR DESPUES!!
-        if (listaAlumnoEnT.size() >= 1) {
-//            AlumnoEnTrabajo aet0 = new AlumnoEnTrabajo();
-//            aet0 = listaAlumnoEnT.get(0);
-//            if (!listaAlumnoEnT.stream().noneMatch((aet) -> (listaAlumnoEnT.get(0).equals(aet)))) {            
-            for(AlumnoEnTrabajo aet : listaAlumnoEnT){
-                if (listaAlumnoEnT.get(0).equals(aet)) {
-                    return false;
+        if (listaAlumnoEnT.size() > 1) {
+            for (AlumnoEnTrabajo aet1 : listaAlumnoEnT) {
+                int contador = 0;
+                for (AlumnoEnTrabajo aet2 : listaAlumnoEnT) {
+                    if (aet1.equals(aet2)){
+                       contador++;
+                    }
+                    if (contador > 1) {
+                        System.out.println("\tERROR - Dos alumnos en trabajo no pueden ser iguales");
+                        return false;
+                    }
                 }
             }
         }
                 
-        
-        //VERIFICO QUE HAYA UN TUTOR Y/O COTUTOR
+        //VERIFICO QUE AUNQUE SEA HAYA UN TUTOR
         if ((listaRolEnT == null) || (listaRolEnT.isEmpty())) {
-            System.out.println("La lista de roles en trabajo es incorrecta");
+            System.out.println("\tERROR - La lista de roles en trabajo es incorrecta");
+            return false;
+        }
+            
+        Profesor tutor = null;
+      
+        for (RolEnTrabajo ret :listaRolEnT){
+            if( ret.getRol().name().equals(Rol.TUTOR.name()) ){
+                tutor = ret.getUnProfesor();
+            }
+        }
+
+        if (tutor == null) {
+            System.out.println("\tERROR - No hay tutor");
             return false;
         }
         
-        //VERIFICO QUE SI HAY COTUTOR SEA DISTINTO AL TUTOR (BUENO ESO INTENTE AL MENOS)
-        //PARECE QUE TAMBIEN CONTEMPLA QUE LOS JURADOS SEAN DISTINTOS DE LOS OTROS
-        if (listaRolEnT.size() > 1) {
-            RolEnTrabajo ret0 = new RolEnTrabajo();
-            ret0 = listaRolEnT.get(0);
-            
-            for(RolEnTrabajo ret : listaRolEnT){
-                if (ret0.equals(ret)) {
-                    return false;
+        for (RolEnTrabajo ret1 : listaRolEnT){
+            for (RolEnTrabajo ret2 : listaRolEnT){
+                if (ret1.getRol().name().equals(Rol.TUTOR.name()) && ret2.getRol().name().equals(Rol.TUTOR.name())) {
+                }else{
+                    if (ret1.getRol().name().equals(Rol.TUTOR.name())) {
+                        if (ret2.getRol().name().equals(Rol.COTUTOR.name())) {
+                            if (ret1.getUnProfesor().equals(ret2.getUnProfesor())) {
+                                System.out.println("\tERROR - El cotutor no puede ser el mismo que el tutor");
+                                return false;
+                            }
+                        }
+                    }
                 }
             }
         }
-        
-        
+    
+
         //VERIFICO LOS JURADOS
         List<Profesor> listaJurado = new ArrayList<>();
+        
         for(RolEnTrabajo ret : listaRolEnT){
-            if (ret.getRol().equals(ret.getRol().JURADO) ) {
+            if (ret.getRol().name().equals(Rol.JURADO.name())) {
                 listaJurado.add(ret.getUnProfesor());
             }
         }
-        
+//        
         if (listaJurado.size() != 3) {
+            System.out.println("\tERROR - El jurado debe tener tres integrantes");
             return false;
         }
         
@@ -200,30 +228,15 @@ public class GestorTrabajos implements IGestorTrabajos{
                 (listaJurado.get(1).equals(listaJurado.get(2))) || 
                 (listaJurado.get(2).equals(listaJurado.get(0)))) {
                 
+                System.out.println("\tERROR - Los integrantes del jurado deben ser distintos entre si");
                 return false;
             }
         }
         
-        if (fechaAprobacion == null) {
-            listaJurado.clear();
-        }
-        
-        
-        for (Trabajo t : this.listasTrabajos){
-            for(AlumnoEnTrabajo aet : t.getAlumnoEnTrabajo()){
-                for (AlumnoEnTrabajo a : listaAlumnoEnT ){
-                    if (aet.getUnAlumno().equals(a.getUnAlumno())) {
-                    //ENCONTRADO EL ALUMNO, FINALIZA SU PARTICIPACION EN EL TRABAJO SI LA FECHA ES VALIDA
-                        System.out.println("El alumno" + a.getUnAlumno().getApellidos() + ", " + a.getUnAlumno().getNombres() + "no puede estar en dos trabajos al mismo tiempo");
-                        return false;
-                    } 
-                }
-            }
-        }  
-        
     return true;
     }
 
+    
     @Override
     public String finalizarTrabajo(Trabajo trabajo, LocalDate fechaExposicion) {
         

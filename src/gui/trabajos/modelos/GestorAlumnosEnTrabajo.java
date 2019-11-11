@@ -9,19 +9,15 @@ package gui.trabajos.modelos;
 import gui.interfaces.IGestorAlumnosEnTrabajo;
 import gui.personas.modelos.Alumno;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  *
  * @author franc
  */
 public class GestorAlumnosEnTrabajo implements IGestorAlumnosEnTrabajo{
-      //NO HACE FALTA AGREGAR EL AET CREADO A UNA LISTA??
-//    private ArrayList<AlumnoEnTrabajo> listasAlumnosEnTrabajo = new ArrayList<>();
     
     private static GestorAlumnosEnTrabajo gestor;
     
-    //Constructor privado
     private GestorAlumnosEnTrabajo(){
     }
     
@@ -34,21 +30,22 @@ public class GestorAlumnosEnTrabajo implements IGestorAlumnosEnTrabajo{
 
     @Override
     public AlumnoEnTrabajo nuevoAlumnoEnTrabajo(LocalDate fechaDesde, Alumno unAlumno) {
-        if (fechaDesde != null && !unAlumno.equals(null)) {
+        if (validarAET(fechaDesde, unAlumno) == true) {
             AlumnoEnTrabajo unAET = new AlumnoEnTrabajo(fechaDesde, unAlumno);
-            System.out.println(EXITO);
+            System.out.println(EXITO_AET);
             return unAET;
-        }else
-            System.out.println(ERROR);
+        }else{
+            System.out.println(ERROR_AET);
             return null;
+        }
     }
     
-    //ES NECESARIO??
-//    private static boolean validarFecha(LocalDate fecha){
-//        if (fecha != null) {
-//           return true; 
-//        }        
-//        return false;
-//    }
+    //NO ES NECESARIO CONTROLAR EL ALUMNO PORQUE YA SE CONTROLO AL MOMENTO DE CREARSE EL MISMO
+    private static boolean validarAET(LocalDate fechaDesde, Alumno unAlumno){
+        if (fechaDesde == null) {
+            return false;
+        }
+        return true;
+    }
     
 }

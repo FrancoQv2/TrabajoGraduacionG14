@@ -19,11 +19,11 @@ public class Seminario {
     
     private NotaAprobacion notaAprobacion;
 
-    //NO SE USA CREO
-    public Seminario(LocalDate fechaExposicion, String observaciones) {
-        this.fechaExposicion = fechaExposicion;
-        this.observaciones = observaciones;
-    }
+//    //NO SE USA CREO
+//    public Seminario(LocalDate fechaExposicion, String observaciones) {
+//        this.fechaExposicion = fechaExposicion;
+//        this.observaciones = observaciones;
+//    }
 
     public Seminario(LocalDate fechaExposicion, NotaAprobacion notaAprobacion, String observaciones) {
         this.fechaExposicion = fechaExposicion;
@@ -96,5 +96,4 @@ public class Seminario {
         }
         return true;
     }
-
 }

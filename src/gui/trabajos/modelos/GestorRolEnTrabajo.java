@@ -31,12 +31,20 @@ public class GestorRolEnTrabajo implements IGestorRolEnTrabajo{
     
     @Override
     public RolEnTrabajo nuevoRolEnTrabajo(LocalDate fechaDesde, Profesor unProfesor, Rol unRol) {
-        if (fechaDesde != null && !unProfesor.equals(null) && !unRol.equals(null)) {
+        if (validarRET(fechaDesde, unProfesor, unRol) == true) {
             RolEnTrabajo unRET = new RolEnTrabajo(fechaDesde, unProfesor, unRol);
-            System.out.println(EXITO);
+            System.out.println(EXITO_RET);
             return unRET;
-        }else
+        }else{
+            System.out.println(ERROR_RET);
             return null;
+        }
     }
     
+    private static boolean validarRET(LocalDate fechaDesde, Profesor unProfesor, Rol unRol){
+        if (fechaDesde == null || unRol == null) {
+            return false;
+        }
+        return true;
+    }
 }

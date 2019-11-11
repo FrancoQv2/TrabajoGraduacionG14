@@ -7,8 +7,6 @@
 package gui.trabajos.modelos;
 
 import gui.areas.modelos.Area;
-import static gui.interfaces.IGestorTrabajos.DUPLICADO;
-import static gui.interfaces.IGestorTrabajos.ERROR;
 import gui.seminarios.modelos.GestorSeminarios;
 import gui.seminarios.modelos.NotaAprobacion;
 import gui.seminarios.modelos.Seminario;
@@ -16,7 +14,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import static gui.interfaces.IGestorTrabajos.EXITO;
+import static gui.interfaces.IGestorTrabajos.EXITO_TRABAJO;
+import static gui.interfaces.IGestorTrabajos.DUPLICADO_TRABAJO;
+import static gui.interfaces.IGestorTrabajos.ERROR_TRABAJO;
 /**
  *
  * @author gabinete
@@ -60,7 +60,6 @@ public class Trabajo {
         this.rolEnTrabajo = rolEnTrabajo;
     }
 
-    
     
     public String getTitulo() {
         return titulo;
@@ -144,10 +143,8 @@ public class Trabajo {
     
     
     public void mostrar(){
-    
             System.out.println("\t\tTitulo: " + this.getTitulo());
             System.out.println("\t\tDuracion: " + this.getDuracion());
-            
             
             for (Area A : areas) {
                 System.out.println("\t\tArea: " + A);
@@ -163,11 +160,15 @@ public class Trabajo {
             
             if (this.getFechaFinalizacion() != null){
                 System.out.println("\t\tFecha Finalizacion: " + this.getFechaFinalizacion() + "\n" );
-            } else 
-                    { System.out.println("\t\tFecha Finalizacion: - \n");
-                }
-            
+            } else { 
+                System.out.println("\t\tFecha Finalizacion: - \n");
+            }
     }
+
+//    @Override
+//    public String toString() {
+//        return "\t\tTitulo: " + this.getTitulo()) + "\t\tDuracion: " + this.getDuracion()) + "\t\tArea: " + this.getAreas() + "\t\tFecha Presentacion: " + this.getFechaPresentacion() + "\t\tFecha Aprobacion: " + this.getFechaAprobacion() + "\t\tFecha Finalizacion: " + this.getFechaFinalizacion() + "\n";    
+//    }
     
     
 
@@ -216,16 +217,16 @@ public class Trabajo {
     }
     
     
-    //VER COMO HACER QUE RETORNE EXITO Y LAS OTRAS CONSTANTES
+    //VER COMO HACER QUE RETORNE EXITO_TRABAJO Y LAS OTRAS CONSTANTES
     public String nuevoSeminario(LocalDate fechaExposicion, NotaAprobacion nota, String observaciones){
         GestorSeminarios gS = GestorSeminarios.instanciar();
         
-        if (!gS.validarSeminario(fechaExposicion, nota, observaciones).equals(EXITO)) {
-            return ERROR;
+        if (!gS.validarSeminario(fechaExposicion, nota, observaciones).equals(EXITO_TRABAJO)) {
+            return ERROR_TRABAJO;
         }
         
         if (!fechaExposicion.isAfter(fechaAprobacion)) {
-            return ERROR;
+            return ERROR_TRABAJO;
         }
         
 //        for (Seminario s : gS.getListasSeminarios()){
@@ -241,14 +242,9 @@ public class Trabajo {
         if (!gS.getListasSeminarios().contains(sem)) {
             gS.getListasSeminarios().add(sem);
             
-            return EXITO;
+            return EXITO_TRABAJO;
         } else {
-            return DUPLICADO;
+            return DUPLICADO_TRABAJO;
         }
-        
-       
     }
-
-    
-    
 }

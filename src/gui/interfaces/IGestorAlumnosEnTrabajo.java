@@ -15,9 +15,9 @@ import java.time.LocalDate;
  * @author franc
  */
 public interface IGestorAlumnosEnTrabajo {
-    public static final String EXITO = "Se agregó el alumno en trabajo correctamente";
-    public static final String DUPLICADO = "El alumno en trabajo ya fue creada";
-    public static final String ERROR = "No se pudo crear el alumno en trabajo";
+    public static final String EXITO_AET = "El alumno en trabajo se agregó correctamente";
+    public static final String DUPLICADO_AET = "El alumno en trabajo ya fue creado anteriormente";
+    public static final String ERROR_AET = "El alumno en trabajo no pudo ser creado";
     
     public AlumnoEnTrabajo nuevoAlumnoEnTrabajo(LocalDate fechaDesde, Alumno unAlumno);
 }

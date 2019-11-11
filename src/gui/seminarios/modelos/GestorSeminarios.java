@@ -45,14 +45,11 @@ public class GestorSeminarios implements IGestorSeminarios{
         if (fechaExposicion == null) {
             return ERROR;
         }
-        
         if ((nota == NotaAprobacion.APROBADO_CONOBS) || (nota == NotaAprobacion.DESAPROBADO)) {
-            if(obs.isEmpty() || obs.equals(null)) {
+            if(obs == null || obs.isEmpty()) {
                 return ERROR;
             }
         }
-        
-           
         return EXITO;
     }
     

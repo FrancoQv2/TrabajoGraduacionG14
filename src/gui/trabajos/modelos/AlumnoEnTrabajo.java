@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * @author estudiante
  */
-public class AlumnoEnTrabajo {
+public class AlumnoEnTrabajo{
     private LocalDate fechaDesde;
     private LocalDate fechaHasta;
     private String razon;
@@ -24,7 +24,7 @@ public class AlumnoEnTrabajo {
     
     //CREADO PARA COMPARAR DOS ALUMNOS EN GESTORTRABAJOS
     public AlumnoEnTrabajo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
     
@@ -41,11 +41,7 @@ public class AlumnoEnTrabajo {
         this.fechaDesde = fechaDesde;
         this.unAlumno = unAlumno;
     }
-
     
-    
-    
-
     public LocalDate getFechaDesde() {
         return fechaDesde;
     }
@@ -102,6 +98,4 @@ public class AlumnoEnTrabajo {
         }
         return true;
     }
-    
-    
 }

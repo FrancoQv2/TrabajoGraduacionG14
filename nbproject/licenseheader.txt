@@ -2,7 +2,7 @@
 ${licenseFirst}
 </#if>
 ${licensePrefix}Programacion II
-${licensePrefix}Caso Practico 2019
+${licensePrefix}Trabajo Graduacion 2019 - G14
 ${licensePrefix}- Bardin, Pablo Mauricio
 ${licensePrefix}- Quevedo, Franco
 <#if licenseLast??>

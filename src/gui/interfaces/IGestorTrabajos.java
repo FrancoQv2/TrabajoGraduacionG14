@@ -20,9 +20,9 @@ import java.util.List;
  * @author gabinete
  */
 public interface IGestorTrabajos {
-    public static final String EXITO = "Se creo el trabajo correctamente";
-    public static final String DUPLICADO = "El trabajo ya fue creado";
-    public static final String ERROR = "No se pudo crear el trabajo";
+    public static final String EXITO_TRABAJO = "- El trabajo se creó correctamente\n";
+    public static final String DUPLICADO_TRABAJO = "- El trabajo ya fue creado anteriormente\n";
+    public static final String ERROR_TRABAJO = "- El trabajo no pudo ser creado\n";
     
     public String nuevoTrabajo (String titulo, List<Area> area, int duracion, LocalDate fechaPresentacion, 
                                 LocalDate fechaAprobacion, List <AlumnoEnTrabajo> listaAlumnoEnT, 

@@ -11,5 +11,6 @@ package gui.trabajos.modelos;
  * @author gabinete
  */
 public enum Rol {
-    TUTOR, COTUTOR, JURADO
+    TUTOR, COTUTOR, JURADO;
 }
+

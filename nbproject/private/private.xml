@@ -12,11 +12,11 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/E:/prog2/TrabajoGraduacionG14/src/gui/seminarios/modelos/GestorSeminarios.java</file>
             <file>file:/E:/prog2/TrabajoGraduacionG14/src/gui/areas/modelos/GestorAreas.java</file>
-            <file>file:/E:/prog2/TrabajoGraduacionG14/src/gui/personas/modelos/Persona.java</file>
-            <file>file:/E:/prog2/TrabajoGraduacionG14/src/gui/interfaces/IGestorPersonas.java</file>
+            <file>file:/E:/prog2/TrabajoGraduacionG14/src/gui/trabajos/modelos/Trabajo.java</file>
             <file>file:/E:/prog2/TrabajoGraduacionG14/src/gui/principal/controladores/PrincipalTP4.java</file>
-            <file>file:/E:/prog2/TrabajoGraduacionG14/src/gui/personas/modelos/GestorPersonas.java</file>
+            <file>file:/E:/prog2/TrabajoGraduacionG14/src/gui/trabajos/modelos/GestorTrabajos.java</file>
             <file>file:/E:/prog2/TrabajoGraduacionG14/src/gui/principal/controladores/ControladorPrincipal.java</file>
         </group>
     </open-files>

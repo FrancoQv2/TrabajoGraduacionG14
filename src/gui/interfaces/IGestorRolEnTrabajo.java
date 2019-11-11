@@ -16,9 +16,9 @@ import java.time.LocalDate;
  * @author estudiante
  */
 public interface IGestorRolEnTrabajo {
-    public static final String EXITO = "Se creo el rol en trabajo correctamente";
-    public static final String DUPLICADO = "El rol en trabajo ya fue creado";
-    public static final String ERROR = "No se pudo crear el rol en trabajo";
+    public static final String EXITO_RET = "El rol en trabajo se agregó correctamente";
+    public static final String DUPLICADO_RET = "El rol en trabajo ya fue creado anteriormente";
+    public static final String ERROR_RET = "El rol en trabajo no pudo ser creado";
     
     public RolEnTrabajo nuevoRolEnTrabajo(LocalDate fechaDesde, Profesor unProfesor, Rol unRol);
 }
